@@ -1,6 +1,5 @@
 use crate::curses::*;
 use crate::filter::Filter;
-use crate::pancurses::*;
 use libm::tanh;
 pub const ROWS : usize = 70;
 pub const COLS : usize = 200;
@@ -17,32 +16,14 @@ pub fn random_state() -> State {
     state
 }
 pub fn display(state : &State) -> () {
-    //switch_to_alternate_buffer();
     for row in 0..ROWS {
         cursor_to(row + 1, 1);
         for col in 0..COLS {
             let brightness = hue(state[row][col]);
             set_color(brightness, brightness,brightness);
-            //curses::cursor_to(row, col);
             print!("\u{2588}");
         }
-    }
-    
-}
-pub fn display_alt(window : &mut Window, state : &State) -> () {
-    //switch_to_alternate_buffer();
-    for row in 0..ROWS {
-        //cursor_to(row + 1, 1);
-        for col in 0..COLS {
-            let brightness = hue(state[row][col]);
-            set_color(brightness, brightness,brightness);
-            window.mv(row as i32, col as i32);
-            if brightness > 128 { window.addstr("\u{2588}");} else { window.addstr(" ");}
-            //print!("\u{2588}");
-        }
-    }
-    window.refresh();
-    
+    }  
 }
 pub fn hue(x : f64) -> u8 {
     (128.0 * (x + 1.0)).trunc() as u8
