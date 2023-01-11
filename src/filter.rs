@@ -1,7 +1,3 @@
-use rand::random;
-
-
-#[derive(Debug)]
 pub struct Touch {
     pub row : i32,
     pub col : i32,
@@ -22,12 +18,11 @@ pub fn random_filter(height : i32, width : i32, power : f64) -> Filter {
     }
     filter
 }
-pub fn random_filters(number : usize, height : i32, width : i32, power : f64) -> Vec<Filter> {
+pub fn simple_random_filters(number : usize, height : i32, width : i32, power : f64) -> Vec<Filter> {
     let mut filters = vec!();
-    for i in 0..number {
-        filters.push(random_filter(height,width, power));
+    for _ in 0..number {
+        filters.push(random_filter(height, width, power));
     }
     filters
 }
-
 
